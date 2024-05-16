@@ -1,9 +1,10 @@
 # JapanSea_SSTtrend
-Model Settings for the series of experiments
+Model Settings for the series of experiments  
+Article: Role of Japan Sea Throughflow in the spatial variablity of the long-term sea surface temperature trend
 
-Directory Name corresponds to the experiment name in the artile.
-RUNINFO is a configuration file
-The other files are input file written in the RUNINFO. 
+Directory Name corresponds to the experiment name in the artile.  
+RUNINFO is a configuration file.  
+The other files are input files written in the RUNINFO. 
 
 
 ## Directory Names
