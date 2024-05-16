@@ -1,0 +1,148 @@
+&RUNINFO
+  start_date  = "0020000_000000",
+  end_date    = "0040000_000000",
+  dtime       = 100.0,
+  inputdir    = "data"
+  outputdir   = "result"
+  reportfile  = "REPORT"
+  initialdir  = "result"
+  HYDROSTATIC = T
+  USE_GLS     = T
+/
+
+&GEOMETRY
+  dimx        = 135,
+  dimy        = 135,
+  dimz        = 25,
+  delta_x     = 10000,
+  delta_y     = 10000,
+  delta_z(1)  = 80,
+  delta_z(6)  = 40,
+  delta_z(16) = 20,
+  bathymetry  = "Japan_Basin_VerticalChange",
+  coriolis_z  = "coriolis_z_constant",
+  open_s      = T,
+  open_e      = T,
+/
+
+&OUTPUT_DEFAULT
+  interval  = "0000005_000000",
+/
+
+&INITIAL varname="S",   filename="$35.0"/
+
+$INPUT varname ="V_SOUTH",
+       filename="v_in_start",
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="U_EAST",
+       filename="u_out_start",
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="T_SOUTH",
+       filename="t_in",
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname="TAU_X",
+       filename="sfc_taux",
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="SFCFLUX_HEAT"
+       start   ="0000000_000000"
+       end     ="0040000_000000"
+       filename="sfcflux_from_restore_inREAL"
+       mode    ="CONSTANT"
+       periods =1/
+
+$INPUT varname ="SFCFLUX_HEAT"
+       start   ="0020000_000000"
+       end     ="0040000_000000"
+       filename="airwarming_constant"
+       mode    ="CONSTANT"
+       periods =1/
+
+&OUTPUT  varname="T"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="U"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="V"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="W"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="SSH"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T_ADVC"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVH_T_ADVC" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVZ_T_ADVC" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T_DIFF"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVH_T_DIFF" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVZ_T_DIFF" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="FLXINCR_T"
+         interval="0001000_000000"
+         surface =T
+         mean    =T/
+
+&OUTPUT  varname="U",/
+&OUTPUT  varname="V",/
+&OUTPUT  varname="W",/
+&OUTPUT  varname="T",/
+&OUTPUT  varname="SSH",/
+&OUTPUT  varname="TIN_T_SOUTH",/
+&OUTPUT  varname="TOUT_T_EAST",/
+&OUTPUT  varname="DIV_T"/
+&OUTPUT  varname="DIV_T_ADVC"/
+&OUTPUT  varname="DIVH_T_ADVC"/
+&OUTPUT  varname="DIVZ_T_ADVC"/
+&OUTPUT  varname="DIV_T_DIFF"/
+&OUTPUT  varname="DIVH_T_DIFF"/
+&OUTPUT  varname="DIVZ_T_DIFF"/
+&OUTPUT  varname="TKE"/
+&OUTPUT  varname="GLS"/
+&OUTPUT  varname="FLXINCR_T", surface=T/
+
+&PARAMETERS
+ TRACER_DIFFUSION_SCHEME = 4,
+ VISCOSITY_SCHEME = 4,
+ SLIP_BOTTOM = T,
+ BULK_BOTTOM_STRESS = T,
+ visc_h = 1.0E2,
+ visc_v = 1.0E-5
+ diff_h = 1.0E2,
+ diff_v = 1.0E-5
+/

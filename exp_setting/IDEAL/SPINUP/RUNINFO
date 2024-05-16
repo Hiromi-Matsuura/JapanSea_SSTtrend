@@ -1,0 +1,145 @@
+&RUNINFO
+  start_date  = "0000000_000000",
+  end_date    = "0040000_000000",
+  dtime       = 100.0,
+  inputdir    = "data"
+  outputdir   = "result"
+  reportfile  = "REPORT"
+  HYDROSTATIC = T
+  USE_GLS     = T
+/
+
+&GEOMETRY
+  dimx        = 120,
+  dimy        = 120,
+  dimz        = 25,
+  delta_x     = 10000,
+  delta_y     = 10000,
+  delta_z(1)  = 80,
+  delta_z(6)  = 40,
+  delta_z(16) = 20,
+  bathymetry  = "bathymetry",
+  coriolis_z  = "coriolis_z_constant",
+  open_s      = T,
+  open_e      = T,
+/
+
+&OUTPUT_DEFAULT
+  interval  = "0000005_000000",
+/
+
+&INITIAL varname="T",   filename="bottom_lowreso_xy120"/
+&INITIAL varname="S",   filename="$35.0"/
+&INITIAL varname="U",   filename="$0.0"/
+&INITIAL varname="V",   filename="$0.0"/
+&INITIAL varname="SSH", filename="$0.0"/
+&INITIAL varname="TKE", filename="$0.0"/
+$INITIAL varname="GLS", filename="$0.0"/
+
+$INPUT varname ="V_SOUTH",
+       filename="v_in"
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="U_EAST",
+       filename="u_out"
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="T_SOUTH",
+       filename="t_in"
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname="TAU_X",
+       filename="sfc_taux",
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="RESTORE_SFC_T",
+       start   ="0000000_000000"
+       end     ="0070000_000000"
+       inputdir="data/restore"
+       filename="restore_temp_03"
+       mode    ="CONSTANT",
+       periods =1/
+
+$INPUT varname ="RESRATE_SFC_T",
+       start   ="0000000_000000"
+       end     ="0070000_000000"
+       inputdir="data/restore"
+       filename="resrate_sfc_t"
+       mode    ="CONSTANT",
+       periods =1/
+
+&OUTPUT  varname="U",/
+&OUTPUT  varname="V",/
+&OUTPUT  varname="W",/
+&OUTPUT  varname="T",/
+&OUTPUT  varname="SSH",/
+
+&OUTPUT  varname="T"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="SSH"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T_ADVC"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVH_T_ADVC" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVZ_T_ADVC" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIV_T_DIFF"  
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVH_T_DIFF" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="DIVZ_T_DIFF" 
+         interval="0001000_000000"
+         mean=T/
+
+&OUTPUT  varname="RESINCR_T"
+         interval="0001000_000000"
+         surface =T
+         mean    =T/
+
+&OUTPUT  varname="TIN_T_SOUTH",/
+&OUTPUT  varname="TOUT_T_EAST",/
+&OUTPUT  varname="DIV_T"/
+&OUTPUT  varname="DIV_T_ADVC"/
+&OUTPUT  varname="DIVH_T_ADVC"/
+&OUTPUT  varname="DIVZ_T_ADVC"/
+&OUTPUT  varname="DIV_T_DIFF"/
+&OUTPUT  varname="DIVH_T_DIFF"/
+&OUTPUT  varname="DIVZ_T_DIFF"/
+&OUTPUT  varname="TKE"/
+&OUTPUT  varname="GLS"/
+&OUTPUT  varname="RESINCR_T", surface=T/
+
+&PARAMETERS
+ TRACER_DIFFUSION_SCHEME = 4,
+ VISCOSITY_SCHEME = 4,
+ SLIP_BOTTOM = T,
+ BULK_BOTTOM_STRESS = T,
+ visc_h = 1.0E2,
+ visc_v = 1.0E-5
+ diff_h = 1.0E2,
+ diff_v = 1.0E-5
+/
+
